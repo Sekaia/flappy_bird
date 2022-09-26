@@ -1,3 +1,8 @@
+# TODO:
+# Random color pipes
+# Day night cycle
+# game over screen
+# random bird each time
 import pygame, sys, random
 
 
@@ -8,8 +13,8 @@ def draw_floor():
 
 def create_pipe():
     random_pipe_position = random.choice(pipe_height)
-    bottom_pipe = pipe_surface.get_rect(midtop = (700, random_pipe_position))
-    top_pipe = pipe_surface.get_rect(midbottom = (700, random_pipe_position - 300))
+    bottom_pipe = green_pipe_surface.get_rect(midtop = (700, random_pipe_position))
+    top_pipe = green_pipe_surface.get_rect(midbottom = (700, random_pipe_position - 300))
     return bottom_pipe, top_pipe
 
 
@@ -23,9 +28,9 @@ def move_pipes(pipes):
 def draw_pipes(pipes):
     for pipe in pipes:
         if pipe.bottom >= 1024:
-            screen.blit(pipe_surface, pipe)
+            screen.blit(green_pipe_surface, pipe)
         else:
-            flip_pipe = pygame.transform.flip(pipe_surface, False, True)
+            flip_pipe = pygame.transform.flip(red_pipe_surface, False, True)
             screen.blit(flip_pipe, pipe)
 
 
@@ -126,8 +131,10 @@ pygame.time.set_timer(BIRDFLAP, 200)
 # bird_surface = pygame.transform.scale2x(bird_surface)
 # bird_rect = bird_surface.get_rect(center = (100, 512))
 
-pipe_surface = pygame.image.load('assets/pipe-green.png').convert()
-pipe_surface = pygame.transform.scale2x(pipe_surface)
+green_pipe_surface = pygame.image.load('assets/pipe-green.png').convert()
+green_pipe_surface = pygame.transform.scale2x(green_pipe_surface)
+red_pipe_surface = pygame.image.load('assets/pipe-red.png').convert()
+red_pipe_surface = pygame.transform.scale2x(red_pipe_surface)
 pipe_list = []
 SPAWNPIPE = pygame.USEREVENT
 pygame.time.set_timer(SPAWNPIPE, 1200)
@@ -149,7 +156,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and game_active:
                 bird_movement = 0
-                bird_movement -= 12
+                bird_movement -= 10
                 flap_sound.play()
             if event.key == pygame.K_SPACE and not game_active:
                 game_active = True
