@@ -95,7 +95,6 @@ def pipe_score_check():
                 can_score = True
 
 
-# pygame.mixer.pre_init(frequency = 44100, size = 32, channels = 1, buffer = 512)
 pygame.init()
 screen = pygame.display.set_mode((576, 1024))
 clock = pygame.time.Clock()
@@ -109,13 +108,14 @@ score = 0
 high_score = 0
 can_score = True
 
-bg_surface = pygame.image.load('assets/background-day.png').convert()
-bg_surface = pygame.transform.scale2x(bg_surface)
+# Background
+bg_surface = pygame.transform.scale2x(pygame.image.load('assets/background-day.png').convert())
 
-floor_surface = pygame.image.load('assets/base.png').convert()
-floor_surface = pygame.transform.scale2x(floor_surface)
+# Floor
+floor_surface = pygame.transform.scale2x(pygame.image.load('assets/base.png').convert())
 floor_x_pos = 0
 
+# Bird Animations
 bird_downflap = pygame.transform.scale2x(pygame.image.load('assets/bluebird-downflap.png').convert_alpha())
 bird_midflap = pygame.transform.scale2x(pygame.image.load('assets/bluebird-midflap.png').convert_alpha())
 bird_upflap = pygame.transform.scale2x(pygame.image.load('assets/bluebird-upflap.png').convert_alpha())
@@ -123,31 +123,30 @@ bird_frames = [bird_downflap, bird_midflap, bird_upflap]
 bird_index = 0
 bird_surface = bird_frames[bird_index]
 bird_rect = bird_surface.get_rect(center = (100, 512))
-
+# Timer for animation
 BIRDFLAP = pygame.USEREVENT + 1
 pygame.time.set_timer(BIRDFLAP, 200)
 
-# bird_surface = pygame.image.load('assets/bluebird-midflap.png').convert_alpha()
-# bird_surface = pygame.transform.scale2x(bird_surface)
-# bird_rect = bird_surface.get_rect(center = (100, 512))
-
-green_pipe_surface = pygame.image.load('assets/pipe-green.png').convert()
-green_pipe_surface = pygame.transform.scale2x(green_pipe_surface)
-red_pipe_surface = pygame.image.load('assets/pipe-red.png').convert()
-red_pipe_surface = pygame.transform.scale2x(red_pipe_surface)
+# Pipes
+green_pipe_surface = pygame.transform.scale2x(pygame.image.load('assets/pipe-green.png').convert())
+red_pipe_surface = pygame.transform.scale2x(pygame.image.load('assets/pipe-red.png').convert())
 pipe_list = []
+# Timer for pipe spawns
 SPAWNPIPE = pygame.USEREVENT
 pygame.time.set_timer(SPAWNPIPE, 1200)
 pipe_height = [400, 600, 800]
 
+# Game over screen
 game_over_surface = pygame.transform.scale2x(pygame.image.load('assets/message.png').convert_alpha())
 game_over_rect = game_over_surface.get_rect(center = (288, 512))
 
+# Sounds
 flap_sound = pygame.mixer.Sound('sound/sfx_wing.wav')
 death_sound = pygame.mixer.Sound('sound/sfx_hit.wav')
 score_sound = pygame.mixer.Sound('sound/sfx_point.wav')
 score_sound_countdown = 100
 
+# Game Loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
