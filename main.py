@@ -18,13 +18,6 @@ def create_pipe():
     return bottom_pipe, top_pipe
 
 
-def move_pipes(pipes):
-    for pipe in pipes:
-        pipe.centerx -= 5
-    visible_pipes = [pipe for pipe in pipes if pipe.right > -50]
-    return visible_pipes
-
-
 def draw_pipes(pipes):
     for pipe in pipes:
         if pipe.bottom >= 1024:
@@ -32,6 +25,13 @@ def draw_pipes(pipes):
         else:
             flip_pipe = pygame.transform.flip(red_pipe_surface, False, True)
             screen.blit(flip_pipe, pipe)
+
+
+def move_pipes(pipes):
+    for pipe in pipes:
+        pipe.centerx -= 5
+    visible_pipes = [pipe for pipe in pipes if pipe.right > -50]
+    return visible_pipes
 
 
 def check_collision(pipes):
@@ -174,8 +174,8 @@ while True:
 
     screen.blit(bg_surface, (0, 0))
     if game_active:
-        # Bird
 
+        # Bird
         bird_movement += gravity
         rotated_bird = rotate_bird(bird_surface)
         bird_rect.centery += bird_movement
@@ -192,8 +192,8 @@ while True:
         screen.blit(game_over_surface, game_over_rect)
         high_score = update_score(score, high_score)
         score_display('game_over')
-    # Floor
 
+    # Floor
     floor_x_pos -= 1
     draw_floor()
     if floor_x_pos <= -576:
