@@ -1,7 +1,7 @@
 # TODO:
 # Random color pipes
 # random bird each time
-import pygame, sys, random
+import pygame, sys, random, bird
 
 
 def draw_floor():
